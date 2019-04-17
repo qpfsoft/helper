@@ -36,7 +36,7 @@ echo Export::arrsrt($arr) . Export::eol();
 
 Export::print($obj);
 
-Export::dump($arr);
+Export::dump($obj);
 
 //Export::echor($obj);
 
