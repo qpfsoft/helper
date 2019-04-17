@@ -5,7 +5,7 @@ QPF Common Helper library
 ## 打印对象或数组
 
 示例对象:
-```
+```php
 class Foo
 {
     public $name;
@@ -21,12 +21,15 @@ class Foo
 
 ### print
 
-```
-Export::print($obj);
+```php
+$obj = new Foo();
+$obj->name = new Foo();
+
+Export::print($obj); // 会直接输出
 ```
 
 输出效果:
-```
+```php
 Foo Object
 (
     [name] => Foo Object
