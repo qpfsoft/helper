@@ -1,17 +1,24 @@
 <?php
+// ╭───────────────────────────────────────────────────────────┐
+// │ QPF Framework [Key Studio]
+// │-----------------------------------------------------------│
+// │ Copyright (c) 2016-2019 quiun.com All rights reserved.
+// │-----------------------------------------------------------│
+// │ Author: qiun <qiun@163.com>
+// ╰───────────────────────────────────────────────────────────┘
 namespace qpf\helper;
 
 /**
- * �����������
+ * 对象解析助手
  */
 class ParseObject
 {
     /**
-     * ��ȡ��ķ��� - �������̳�
-     * @param string|object $class ���������ʵ��
+     * 获取类的公共方法  - 不含继承方法
+     * @param string|object $class 类名或对象实例
      * @return array
      */
-    public static function getMethods($class)
+    public static function getPublicMethods($class)
     {
         $methods = get_class_methods($class);
         
@@ -29,8 +36,10 @@ class ParseObject
     }
     
     /**
-     * ��ȡ���Ĭ��Public����
-     * @param string|object $class ���������ʵ��
+     * 获取类的公共属性
+     * 
+     * 包含父类的public属性, 属性值为类文件内填写的值.
+     * @param string|object $class 类名或对象实例
      * @return array
      */
     public static function getPublicProperty($class)

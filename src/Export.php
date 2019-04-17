@@ -23,7 +23,10 @@ class Export
     {
         ob_start();
         var_dump($var);
-        echo ob_get_clean();
+        $str = ob_get_clean();
+        $isCli = PHP_SAPI == 'cli';
+        echo ($isCli ? '' : '<pre style="white-space: pre-wrap;word-wrap: break-word;">') . 
+        $str . ($isCli ? '' : '</pre>');
     }
     
     /**
@@ -68,6 +71,38 @@ class Export
         }
         
         echo  $var . self::eol();
+    }
+    
+    /**
+     * 高亮输出脚本代码
+     * @param string $var 代码
+     * @param bool $return 返回输出
+     * @return string
+     */
+    public static function codeHighlight($var, $return = false)
+    {
+        $result = highlight_string("<?php\n" . $var, true);
+        $result = preg_replace('/&lt;\\?php<br \\/>/', '', $result, 1);
+        if ($return) {
+            return $result;
+        }
+        
+        echo $result;
+    }
+    
+    /**
+     * 安全的输出带html的内容
+     * @param string $var 字符串
+     * @param bool $return 返回输出
+     * @return mixed
+     */
+    public static function html($var, $return = false)
+    {
+        $result = str_replace(' ', '&nbsp;', htmlspecialchars($var, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', true));
+        if ($return) {
+            return $result;
+        }
+        echo $result;
     }
     
     /**
