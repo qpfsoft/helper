@@ -71,8 +71,28 @@ class ParseObjectTest
         $arr = ParseObject::getPublicMethods(Foo::class);
         echor($arr);
     }
+    
+    /**
+     * 获取类的属性, 3种格式
+     */
+    public function base3()
+    {
+        // 获取对象的属性 - 多种键名格式
+        $arr = ParseObject::getobjectVars(new Foo());
+        echor($arr);
+    }
+    
+    /**
+     * 获取类的数组格式
+     */
+    public function base4()
+    {
+        // 包含属性集合 - 含所有, 方法集合 - 不含继承
+        $arr = ParseObject::getObjectArray(new Foo());
+        echor($arr);
+    }
 }
 
 $test = new ParseObjectTest();
 
-$test->base2();
+$test->base4();
