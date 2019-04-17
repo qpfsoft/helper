@@ -247,6 +247,9 @@ class MoniTest
         echor(MoniData::mobile());
     }
     
+    /**
+     * 随机银行信息
+     */
     public function bank1()
     {
         // 银行名称
@@ -257,9 +260,25 @@ class MoniTest
         // 一条银行信息
         echor(MoniData::bankItem());
     }
+    
+    /**
+     * 生成随机IP
+     */
+    public function ip1()
+    {
+        echor(MoniData::ip());
+    }
+    
+    /**
+     * 生成随机身份证
+     */
+    public function idCard1()
+    {
+        echor(MoniData::idCard());
+    }
 }
 
 
 $moniTest = new MoniTest();
 
-$moniTest->email1();
+$moniTest->idCard1();
