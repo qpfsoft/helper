@@ -1,7 +1,8 @@
 <?php
-include __DIR__ . '/../src/Moni.php';
+include 'boot.php';
 
 use qpf\helper\Moni;
+use qpf\helper\MoniData;
 
 class MoniTest
 {
@@ -213,9 +214,52 @@ class MoniTest
         $str = Moni::datetime(['2017-2018', '1-12', '1-30']);
         var_dump($str);
     }
+    
+    /**
+     * 生成随机中文名字
+     */
+    public function name1()
+    {
+        echor(MoniData::nameChinese());
+    }
+    
+    /**
+     * 生成随机url地址 - 简单
+     */
+    public function url1()
+    {
+        echor(MoniData::url());
+    }
+    
+    /**
+     * 生成随机邮箱地址
+     */
+    public function email1()
+    {
+        echor(MoniData::email());
+    }
+    
+    /**
+     * 生成随机手机号
+     */
+    public function mobile1()
+    {
+        echor(MoniData::mobile());
+    }
+    
+    public function bank1()
+    {
+        // 银行名称
+        echor(MoniData::bankName());
+        // 银行标识字母
+        echor(MoniData::bankId());
+        
+        // 一条银行信息
+        echor(MoniData::bankItem());
+    }
 }
 
 
 $moniTest = new MoniTest();
 
-$moniTest->string1();
+$moniTest->email1();

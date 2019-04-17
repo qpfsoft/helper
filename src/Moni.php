@@ -108,7 +108,7 @@ class Moni
     }
     
     /**
-     * 随机返回一个元素的值
+     * 随机多个元素的值
      * @param array $array 数组数据
      * @param int $rule 返回元素数量`length|min-max`
      * @return array
@@ -124,6 +124,26 @@ class Moni
             $rand_value[] = $array[mt_rand(0, $max_key)];
         }
         return $rand_value;
+    }
+    
+    /**
+     * 随机一个数组的值
+     * @param array $array
+     * @return string
+     */
+    public static function arrVal(array $array)
+    {
+        return $array[array_rand($array)];
+    }
+    
+    /**
+     * 随机一个数组的键名
+     * @param array $array
+     * @return mixed
+     */
+    public static function arrKey(array $array)
+    {
+        return array_rand($array);
     }
     
     /**
@@ -212,10 +232,32 @@ class Moni
         return date_format($date, 'H:i:s');
     }
     
-    
+    /**
+     * 生成随机日期时间
+     * @param mixed $rule 日期规则
+     * @return string
+     */
     public static function datetime($rule)
     {
         return self::date($rule) . ' ' . self::time();
+    }
+    
+    /**
+     * 生成随机汉字
+     * @param int $num 汉字数量规则, `length|minLength-maxLength`
+     * @param string $charset 字符集
+     * @return string
+     */
+    public static function chinese($rule, $charset = 'utf-8')
+    {
+        if (is_numeric($rule)) {
+            $num = $rule;
+        } else {
+            list($min, $max) = self::parseRule($rule);
+            $num = mt_rand($min, $max);
+        }
+        
+        return join('', self::buildStrChinese($num, $charset));
     }
     
     /**
