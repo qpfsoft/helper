@@ -1,21 +1,29 @@
 <?php
+// â•­â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+// â”‚ QPF Framework [Key Studio]
+// â”‚-----------------------------------------------------------â”‚
+// â”‚ Copyright (c) 2016-2019 quiun.com All rights reserved.
+// â”‚-----------------------------------------------------------â”‚
+// â”‚ Author: qiun <qiun@163.com>
+// â•°â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 namespace qpf\helper;
 
 /**
- * Ä£ÄâÊı¾İÉú³ÉÆ÷
+ * æ¨¡æ‹Ÿæ•°æ®ç”Ÿæˆå™¨
+ * @author qpfsoft
  */
 class Moni
 {
     /**
-     * Éú³ÉËæ»ú×Ö·û´®
+     * ç”Ÿæˆéšæœºå­—ç¬¦ä¸²
      * ```
      * string(2); //oj
      * string('1-4'); // o, ed, sdf, 4agu
      * string([1, 4]);
      * string(4, 'abcdefg'); // aegd
      * ```
-     * @param mixed $rule ×Ö·ûÊı
-     * @param string $seed ×Ô¶¨ÒåÖÖ×Ó
+     * @param mixed $rule å­—ç¬¦æ•°
+     * @param string $seed è‡ªå®šä¹‰ç§å­
      * @return string
      */
     public static function string($rule, $seed = null)
@@ -36,9 +44,9 @@ class Moni
     }
     
     /**
-     * Éú³ÉËæ»úÊı×Ö
-     * @param mixed $rule Î»Êı, `length|min-max`
-     * @param string $seed ×Ô¶¨ÒåÖÖ×Ó
+     * ç”Ÿæˆéšæœºæ•°å­—
+     * @param mixed $rule ä½æ•°, `length|min-max`
+     * @param string $seed è‡ªå®šä¹‰ç§å­
      * @return int
      */
     public static function number($rule, $seed = null)
@@ -55,9 +63,9 @@ class Moni
     }
     
     /**
-     * Éú³É¸¡µãÊı
-     * @param mixed $intRule ÕûÊı²¿·Ö¹æÔò `length|min-max`
-     * @param mixed $tinyRule Ğ¡Êı²¿·Ö¹æÔò `length|min-max`
+     * ç”Ÿæˆæµ®ç‚¹æ•°
+     * @param mixed $intRule æ•´æ•°éƒ¨åˆ†è§„åˆ™ `length|min-max`
+     * @param mixed $tinyRule å°æ•°éƒ¨åˆ†è§„åˆ™ `length|min-max`
      * @return float
      */
     public static function float($intRule, $tinyRule)
@@ -66,8 +74,8 @@ class Moni
     }
     
     /**
-     * Éú³ÉËæ»ú²¼¶ûÖµ
-     * @param bool $rule ÊÖ¶¯Ö¸¶¨
+     * ç”Ÿæˆéšæœºå¸ƒå°”å€¼
+     * @param bool $rule æ‰‹åŠ¨æŒ‡å®š
      * @return bool
      */
     public static function boolean($rule = null)
@@ -80,8 +88,8 @@ class Moni
     }
     
     /**
-     * Éú³É¸ü¶àµÄTrueÖµ
-     * @param int $rule 100 - 90 = 10%µÄ¼¸ÂÊ»áfalse
+     * ç”Ÿæˆæ›´å¤šçš„Trueå€¼
+     * @param int $rule 100 - 90 = 10%çš„å‡ ç‡ä¼šfalse
      * @return boolean
      */
     public static function booleanTrue($rule = 90)
@@ -90,8 +98,8 @@ class Moni
     }
     
     /**
-     * Éú³É¸ü¶àµÄFalseÖµ
-     * @param int $rule 100 - 90 = 10%µÄ¼¸ÂÊ»átrue
+     * ç”Ÿæˆæ›´å¤šçš„Falseå€¼
+     * @param int $rule 100 - 90 = 10%çš„å‡ ç‡ä¼štrue
      * @return boolean
      */
     public static function booleanFalse($rule = 90)
@@ -100,9 +108,9 @@ class Moni
     }
     
     /**
-     * Ëæ»ú·µ»ØÒ»¸öÔªËØµÄÖµ
-     * @param array $array Êı×éÊı¾İ
-     * @param int $rule ·µ»ØÔªËØÊıÁ¿`length|min-max`
+     * éšæœºè¿”å›ä¸€ä¸ªå…ƒç´ çš„å€¼
+     * @param array $array æ•°ç»„æ•°æ®
+     * @param int $rule è¿”å›å…ƒç´ æ•°é‡`length|min-max`
      * @return array
      */
     public static function arr($array, $rule)
@@ -119,10 +127,10 @@ class Moni
     }
     
     /**
-     * Ëæ»úÈÕÆÚ
+     * éšæœºæ—¥æœŸ
      *
-     * È¡Öµ·¶Î§`1~99`
-     * @param string|array $rule ¹æÔò`Y-m-d`, `[Y, m, d]`
+     * å–å€¼èŒƒå›´`1~99`
+     * @param string|array $rule è§„åˆ™`Y-m-d`, `[Y, m, d]`
      * @return string
      */
     public static function date($rule)
@@ -137,10 +145,10 @@ class Moni
     }
     
     /**
-     * Ëæ»úµİÔöÈÕÆÚ - ÌìÊı
-     * @param string $rule ÈÕÆÚ`Y-m-d`
-     * @param int $num Éú³ÉÊıÁ¿
-     * @param string $incRule µİÔö¹æÔò, 'int'¹Ì¶¨¼ä¸ôÖµ, 'min-max'Ëæ»ú¼ä¸ôÖµ
+     * éšæœºé€’å¢æ—¥æœŸ - å¤©æ•°
+     * @param string $rule æ—¥æœŸ`Y-m-d`
+     * @param int $num ç”Ÿæˆæ•°é‡
+     * @param string $incRule é€’å¢è§„åˆ™, 'int'å›ºå®šé—´éš”å€¼, 'min-max'éšæœºé—´éš”å€¼
      * @return array
      */
     public static function dateIncrement($rule, $num , $incRule = '1-2')
@@ -161,10 +169,10 @@ class Moni
     }
     
     /**
-     * ÈÕÆÚµİ¼õ
-     * @param string $rule ÈÕÆÚ`Y-m-d`
-     * @param int $num Éú³ÉÊıÁ¿
-     * @param string $incRule µİÔö¹æÔò, 'int'¹Ì¶¨¼ä¸ôÖµ, 'min-max'Ëæ»ú¼ä¸ôÖµ
+     * æ—¥æœŸé€’å‡
+     * @param string $rule æ—¥æœŸ`Y-m-d`
+     * @param int $num ç”Ÿæˆæ•°é‡
+     * @param string $incRule é€’å¢è§„åˆ™, 'int'å›ºå®šé—´éš”å€¼, 'min-max'éšæœºé—´éš”å€¼
      * @return array
      */
     public static function dateDecrement($rule, $num , $incRule = '1-2')
@@ -185,7 +193,7 @@ class Moni
     }
     
     /**
-     * Ëæ»úÊ±¼ä
+     * éšæœºæ—¶é—´
      * @param string $rule
      * @return string
      */
@@ -211,12 +219,12 @@ class Moni
     }
     
     /**
-     * ½âÎöËæ»ú¹æÔò
+     * è§£æéšæœºè§„åˆ™
      * ```
      * '1-4' => [1, 4]
      * ```
-     * @param string|array $rule ¹æÔò
-     * @param int $num ·Ö¸îÊıÁ¿, Ä¬ÈÏ`2`
+     * @param string|array $rule è§„åˆ™
+     * @param int $num åˆ†å‰²æ•°é‡, é»˜è®¤`2`
      * @return array
      */
     private static function parseRule($rule, $num = 2)
@@ -229,14 +237,14 @@ class Moni
     }
     
     /**
-     * Éú³ÉÖ¸¶¨³¤¶ÈµÄËæ»ú×Ö·û´®
-     * @param int $length Éú³É³¤¶È
-     * @param string $chars ×Ö·ûÖÖ×Ó
+     * ç”ŸæˆæŒ‡å®šé•¿åº¦çš„éšæœºå­—ç¬¦ä¸²
+     * @param int $length ç”Ÿæˆé•¿åº¦
+     * @param string $chars å­—ç¬¦ç§å­
      * @return string
      */
     private static function length($length, $chars)
     {
-        $length = max(1, $length); // ×îĞ¡1Î»
+        $length = max(1, $length); // æœ€å°1ä½
         $result = '';
         for ($i = 0; $i < $length; $i++) {
             $result .= $chars[mt_rand(0, strlen($chars) - 1)];
@@ -245,7 +253,7 @@ class Moni
     }
     
     /**
-     * Ê¹ÓÃ¹æÔòÉú³É
+     * ä½¿ç”¨è§„åˆ™ç”Ÿæˆ
      *
      * ```
      * useRuleBuild(1);
@@ -253,8 +261,8 @@ class Moni
      * useRuleBuild([1, 4]);
      * useRuleBuild(1, 'abc');
      * ```
-     * @param mixed $rule ¹æÔò`length|minLength-maxLength`
-     * @param string $chars ×Ö·ûÖÖ×Ó
+     * @param mixed $rule è§„åˆ™`length|minLength-maxLength`
+     * @param string $chars å­—ç¬¦ç§å­
      * @return mixed
      */
     private static function useRuleBuild($rule, $chars)
@@ -282,10 +290,10 @@ class Moni
     }
     
     /**
-     * »ñÈ¡×Ö·û´®ÖÖ×ÓÊı¾İ
-     * @param bool $upper ÊÇ·ñ°üº¬´óĞ´×ÖÄ¸
-     * @param bool $number ÊÇ·ñ°üº¬Êı×Ö
-     * @param bool $rand ÊÇ·ñ´òÂÒË³Ğò
+     * è·å–å­—ç¬¦ä¸²ç§å­æ•°æ®
+     * @param bool $upper æ˜¯å¦åŒ…å«å¤§å†™å­—æ¯
+     * @param bool $number æ˜¯å¦åŒ…å«æ•°å­—
+     * @param bool $rand æ˜¯å¦æ‰“ä¹±é¡ºåº
      * @return string
      */
     public static function buildStrData($upper = true, $number = true, $rand = false)
@@ -298,10 +306,10 @@ class Moni
     }
     
     /**
-     * »ñÈ¡Ëæ»úºº×Ö
-     * @param int $num »ñÈ¡ÊıÁ¿
-     * @param string $charset ×Ö·û¼¯
-     * @return array ·µ»ØÖ¸¶¨ÊıÁ¿µÄºº×ÖÊı×é
+     * è·å–éšæœºæ±‰å­—
+     * @param int $num è·å–æ•°é‡
+     * @param string $charset å­—ç¬¦é›†
+     * @return array è¿”å›æŒ‡å®šæ•°é‡çš„æ±‰å­—æ•°ç»„
      */
     public static function buildStrChinese($num, $charset = 'utf-8')
     {
