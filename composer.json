@@ -1,0 +1,20 @@
+{
+    "name": "qpfsoft/helper",
+    "description": "Common Helper library",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "qiun",
+            "email": "qiun@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "autoload": {
+    	"psr-4": {
+    		"qpf\\helper\\": "src"
+    	}
+    }
+}
