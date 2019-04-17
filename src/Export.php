@@ -36,7 +36,7 @@ class Export
         $isCli = PHP_SAPI == 'cli';
         echo ($isCli ? '': '<pre>') . print_r($var, true) . ($isCli ? '': '</pre>');
     }
-    
+
     /**
      * 原样换行并输出
      * @param mixed $var 变量

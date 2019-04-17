@@ -29,14 +29,14 @@ $obj->name = new Foo();
 Export::echor($arr);
 
 // 紧凑格式, 使用echor来输出会进行转义
-echo Export::compact(Export::varArray($arr)) . Export::eol();
+//echo Export::compact(Export::varArray($arr)) . Export::eol();
 
 // 
-echo Export::arrsrt($arr) . Export::eol();
+//echo Export::arrsrt($arr) . Export::eol();
 
-Export::print($obj);
+//Export::print($arr);
 
-Export::dump($obj);
+//Export::dump($obj);
 
 //Export::echor($obj);
 
