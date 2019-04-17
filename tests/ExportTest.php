@@ -13,7 +13,7 @@ class Foo
 {
     public $name;
     protected $num = 5;
-    private $ver = 'ok';
+    private $key = 'ok';
     const TYPE_INT = 1;
     public function getName()
     {
