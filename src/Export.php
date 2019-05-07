@@ -32,12 +32,14 @@ class Export
     /**
      * 易读输出
      * @param mixed $var 变量
+     * @param bool $return 返回输出
      * @return void
      */
     public static function print($var)
     {
         $isCli = PHP_SAPI == 'cli';
-        echo ($isCli ? '': '<pre>') . print_r($var, true) . ($isCli ? '': '</pre>');
+        echo ($isCli ? '': '<pre>') . print_r($var, true) .  ($isCli ? '': '</pre>');
+
     }
 
     /**
@@ -49,7 +51,7 @@ class Export
     {
         echo $var . self::eol();
     }
-    
+
     /**
      * 输出变量
      * @param mixed $var 变量
@@ -59,18 +61,36 @@ class Export
     public static function echor($var, $return = false)
     {
         if (is_array($var)) {
-            $var = self::varArray($var);
+            $str = self::varArray($var);
         } elseif (is_object($var)) {
-            $var = self::varObject($var);
+            $str = 'Object("' . get_class($var) . '") {';
+            $vars = ParseObject::getobjectVars($var);
+            if (is_array($vars) && isset($vars[2])) {
+                $str .= self::varArray($vars[2], true);
+            }
+            $str .= '}';
+        } elseif (is_string($var)) {
+            $str = var_export($var, true);
         } else {
-            $var = self::varStr($var);
+            $str = self::varStr($var);
         }
         
         if ($return) {
-            return $var;
+            return $str;
         }
         
-        echo  $var . self::eol();
+        echo  $str . self::eol();
+    }
+    
+    /**
+     * 对象输出
+     * @param object $var
+     * @param bool $return
+     * @return array
+     */
+    public static function objct($var, $return = false)
+    {
+        return self::echor(self::varObject($var), $return);
     }
     
     /**
@@ -112,76 +132,111 @@ class Export
      */
     public static function varStr($var)
     {
-        return var_export($var, true);
-    }
-    
-    /**
-     * 将数组转换为字符串
-     *
-     * 该方法相当于[[Export::compact(Export::varArray($arr))]]的执行效果,
-     * 但区别的是, 有适当的空格更方便查看.
-     *
-     * @param array $var 数组
-     * @return string
-     */
-    public static function arrsrt($var)
-    {
         if (is_array($var)) {
-            $temp = [];
-            foreach ($var as $key => $value) {
-                $temp[] =  var_export($key, true) . ' => ' . self::arrsrt($value);
-            }
+            $map_varstr = function (array $arr) use (&$map_varstr) {
+                foreach ($arr as $i => $v) {
+                    if (is_array($v)) {
+                        $arr[$i] = $map_varstr($v);
+                    } else {
+                        $arr[$i] = self::varStr($v);
+                    }
+                }
+                return $arr;
+            };
             
-            return '[' . implode(', ', $temp) . ']';
+            return print_r($map_varstr($var), true);
+        } elseif ($var === null) {
+            return 'null';
+        } elseif ($var === true || $var === false) {
+            return $var ? 'true' : 'false';
+        } elseif (is_int($var) || is_float($var)) {
+            return $var;
+        } elseif (is_numeric($var)) {
+            return '\'' . $var . '\'';
+        } elseif (is_string($var)) {
+            if (strpos($var, '<') !== false || strpos($var, '>') !== false) {
+                $var = html_encode($var);
+            }
+            return '\'' . trim($var, '\'') . '\'';
+        } elseif ($var instanceof \Closure) {
+            return 'function(){}';
+        } elseif (is_object($var)) {
+            return 'Object("' . get_class($var) . '"){}';
+        } elseif (is_resource($var)) {
+            return '{resource}';
         } else {
-            return var_export($var, true);
+            return '{unknown}';
         }
     }
     
     /**
      * 获取数组的字符串描述
-     * @param array $var 数组
+     * @param array $array 数组
      * @return string
      */
-    public static function varArray(array $var)
+    public static function varArray($array, $level = 1)
     {
-        $export = var_export($var, true);
-        
-        if (is_array($var)) {
-            $export = preg_replace("/^([ ]*)(.*)/m", '$1$1$2', $export);
-            $array = preg_split("/\r\n|\n|\r/", $export);
-            $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [NULL, ']$1', ' => ['], $array);
-            $export = implode(PHP_EOL, array_filter(['['] + $array));
-            return $export;
+        if (!is_array($array)) {
+            return self::varStr($array);
+        } 
+
+        $tab_level = str_repeat(self::tab(), $level);
+        $str = '';
+        if (empty($array)) {
+            $str = '[]';
+        } else {
+            $tmp = '[' . self::eol();
+            $lastKey = array_last_key($array);
+            
+            foreach ($array as $index => $value) {
+                $comma = $lastKey == $index ? '' : ',';
+                if (is_array($value)) {
+                    $tmp .= $tab_level . var_export($index, true) . ' => ';
+                    $tmp .= self::varArray($value, $level + 1) . $comma . self::eol();
+                } else {
+                    $tmp .= $tab_level . var_export($index, true) . ' => ' . self::varArray($value) . $comma . self::eol();
+                }
+            }
+            
+            if ($level > 1) {
+                $str = $tmp . $tab_level = str_repeat(self::tab(), $level - 1) . ']';
+            } else {
+                $str = $tmp . ']';
+            }
         }
+        return $str;
     }
-    
+
     /**
      * 获取对象的字符串描述
      * @param object $var 对象
-     * @return string
+     * @return array
      */
     public static function varObject($var)
     {
-        $export = var_export($var, true);
-        
-        if (is_object($var)) {
-            $export = preg_replace("/^([ ]*)(.*)/m", '$1$1$2', $export);
-            $export = preg_replace(['/(\w+)::__set_state\(array\(/', '/\)\)/'], ['[\'$1 (object)\' => $2', ']'], $export);
-            $export = implode(self::eol(), preg_split("/\r\n|\n|\r/", $export));
-            return $export;
-        }
+        return ParseObject::getObjectArray($var);
     }
     
     /**
      * 自适应换行符
      *
-     * 网页以br标签, 控制台以文本换行
+     * 网页以br标签, 控制台以文本\r\n
      * @return string
      */
     public static function eol()
     {
         return PHP_SAPI == 'cli' ? PHP_EOL : '<br>';
+    }
+    
+    /**
+     * 自适应制表符
+     * 
+     * 网页以&nbsp;标签, 控制台以文本\t
+     * @return string
+     */
+    public static function tab()
+    {
+        return PHP_SAPI == 'cli' ? "\t" : '&nbsp;&nbsp;&nbsp;&nbsp;';
     }
     
     /**
@@ -191,6 +246,6 @@ class Export
      */
     public static function compact($str)
     {
-        return str_replace([' ', PHP_EOL, '<br>', ',]'], ['', '', '', ']'], $str);
+        return str_replace([' ', PHP_EOL, '<br>', "\t", ',]'], ['', '', '', '',']'], $str);
     }
 }
