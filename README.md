@@ -1,8 +1,10 @@
-# helper V1
+# helper V2
 
 > QPF Common Helper library
 
-- php >= 5.6
+- PHP >= 7.1.0
+- 在V1版本的基础上, 增加参数类型与返回类型
+- 增加对第三方类库的封装
 
 ## Export
 
