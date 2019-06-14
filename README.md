@@ -1,5 +1,8 @@
-# helper
-QPF Common Helper library
+# helper V1
+
+> QPF Common Helper library
+
+- php >= 5.6
 
 ## Export
 
