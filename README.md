@@ -1,5 +1,9 @@
-# helper
-QPF Common Helper library
+# helper V2
+
+> QPF Common Helper library
+
+- PHP >= 7.1.0
+- 在V1版本的基础上, 增加参数类型与返回类型
 
 ## Export
 
