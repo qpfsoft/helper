@@ -6,10 +6,12 @@
 // │-----------------------------------------------------------│
 // │ Author: qiun <qiun@163.com>
 // ╰───────────────────────────────────────────────────────────┘
-use qpf\deunit\Deunit;
+/* use qpf\deunit\Deunit;
 
 include __DIR__ . '/deunit/Deunit.php';
 include __DIR__ . '/helper.php';
 
 Deunit::$namespace['qpf\helper'] = __DIR__ . '/../src';
-Deunit::init();
+Deunit::init(); */
+
+include __DIR__ . '/../../qpf-core/src/bootstrap.php';

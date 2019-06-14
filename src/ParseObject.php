@@ -105,6 +105,8 @@ class ParseObject
                 foreach ($params[2] as $name => $value) {
                     if (is_array($value)) {
                         $result['propertys'][$name] = $value;
+                    } elseif (is_object($value)) {
+                        $result['propertys'][$name] = self::getObjectArray($value);
                     } else {
                         $result['propertys'][$name] = var_export($value, true);
                     }

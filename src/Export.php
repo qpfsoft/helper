@@ -218,6 +218,24 @@ class Export
     }
     
     /**
+     * 是否控制台运行
+     * @param bool $bool 环境外挂
+     * @return bool
+     */
+    public static function isCli($bool = null)
+    {
+        static $is;
+        
+        $is = $bool;
+        
+        if ($is !== null) {
+            return $bool;
+        }
+        
+        return PHP_SAPI == 'cli';
+    }
+    
+    /**
      * 自适应换行符
      *
      * 网页以br标签, 控制台以文本\r\n
@@ -225,7 +243,7 @@ class Export
      */
     public static function eol()
     {
-        return PHP_SAPI == 'cli' ? PHP_EOL : '<br>';
+        return self::isCli() ? PHP_EOL : '<br>';
     }
     
     /**
@@ -236,7 +254,7 @@ class Export
      */
     public static function tab()
     {
-        return PHP_SAPI == 'cli' ? "\t" : '&nbsp;&nbsp;&nbsp;&nbsp;';
+        return self::isCli() ? "\t" : '&nbsp;&nbsp;&nbsp;&nbsp';
     }
     
     /**
